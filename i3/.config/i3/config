@@ -1,0 +1,147 @@
+# --- System Variables & Key Assignment ---
+set $mod Mod4
+set $terminal kitty
+set $fileManager kitty yazi
+set $menu rofi -show drun
+
+set $active_border    #6B7A82
+set $active_bg        #1A1A1C
+set $active_text      #EBEFF2
+set $indicator_line   #A68D8A
+set $inactive_border  #3C4247
+set $inactive_bg      #0C0D0E
+set $inactive_text    #757F85
+
+# --- Autostart Applications & Daemons ---
+exec --no-startup-id picom -b
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xrdb -merge ~/.Xresources
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# --- Screen Inactivity & Automated Locking (5 minute) ---
+#exec --no-startup-id xautolock -time 3 -locker /home/kai/.local/share/quickshell-lockscreen/lock.sh
+#exec --no-startup-id xautolock -time 3 -locker "pidof vlc || pidof mpv || grep -q 'RUNNING' /proc/asound/card*/pcm*/sub*/status || /home/kai/.local/share/quickshell-lockscreen/lock.sh"
+
+
+# --- State-Persistent Live Wallpaper Initialization ---
+#exec --no-startup-id /home/kai/.local/bin/wallswitch.sh --init
+#exec --no-startup-id ~/Livewall/toggle_wallpaper.py
+
+exec_always --no-startup-id ~/.fehbg
+
+
+# --- Application Launch Shortcuts & Custom Rofi Menus ---
+bindsym $mod+Return exec --no-startup-id $terminal
+bindsym $mod+e exec --no-startup-id $fileManager
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-2/launcher.sh
+bindsym $mod+F2 exec --no-startup-id ~/.config/rofi/powermenu/type-1/powermenu.sh
+
+# Wallpaper Selection & Utility Menus
+bindsym $mod+y exec --no-startup-id /home/kai/.config/rofi/applets/bin/screenshot.sh
+#bindsym $mod+t exec --no-startup-id /home/kai/.local/bin/wallswitch.sh
+bindsym $mod+t exec --no-startup-id /home/kai/.config/rofi/applets/bin/wallswitch.sh
+bindsym $mod+F3 exec --no-startup-id /home/kai/.config/polybar/polytheme.sh
+bindsym $mod+F4 exec --no-startup-id /home/kai/Documents/Apps/BTController/remotegamepad
+
+# --- Apply Border Width & Colors ---
+default_border pixel 1
+default_floating_border pixel 1
+
+
+# class                 border            backgr            text             indicator        child_border
+client.focused          $active_border    $active_bg        $active_text     $indicator_line  $active_border
+client.focused_inactive $inactive_border  $inactive_bg      $inactive_text   $inactive_border $inactive_border
+client.unfocused        $inactive_border  $inactive_bg      $inactive_text   $inactive_border $inactive_border
+client.urgent           #db5c4d           #db5c4d           #eceff4          #db5c4d          #db5c4d
+
+# --- Desktop Layout & Typography ---
+font pango:monospace 10.3
+gaps inner 4
+gaps outer 5
+gaps top 32
+
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+# --- Core Window Controls ---
+bindsym $mod+q kill
+bindsym $mod+v floating toggle
+bindsym $mod+f fullscreen toggle
+
+# --- Navigation & Focus (Vim-Style Layout) ---
+bindsym $mod+h focus up
+bindsym $mod+j focus left
+bindsym $mod+k focus right
+bindsym $mod+l focus down
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# --- Container Movement Profiles ---
+bindsym $mod+Shift+h move up
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move right
+bindsym $mod+Shift+l move down
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# --- Workspace Definitions ---
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+
+# --- Scratchpad Settings ---
+bindsym $mod+s scratchpad show
+bindsym $mod+Shift+s move scratchpad
+
+# --- Mouse/Scroll Wheel Workspace Navigation ---
+bindsym $mod+button4 workspace next
+bindsym $mod+button5 workspace prev
+
+# --- Hardware System Volume Mappings ---
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# --- Environment Controls & Refreshes ---
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+

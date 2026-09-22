@@ -1,0 +1,62 @@
+[global]
+    ### Modern Geometry Layout ###
+    origin = top-right
+    offset = (15, 45)             # Modern syntax format (X, Y)
+    width = 300
+    height = (0, 110)            # Modern tuple structure (min, max height)
+    notification_limit = 4
+    
+    ### Progress & Design Trim ###
+    progress_bar = true
+    progress_bar_height = 4
+    progress_bar_frame_width = 0
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+
+    padding = 10
+    horizontal_padding = 12
+    text_icon_padding = 12
+    
+    ### Typography Layout ###
+    font = ComicShannsMono Nerd Font 10
+    line_height = 4
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    show_age_threshold = 60
+    word_wrap = true
+    ellipsize = middle
+    
+    ### Assets & Icons Control ###
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 48
+    
+    ### Interaction Layers ###
+    mouse_left_click = close_current
+    mouse_right_click = close_all
+
+    ### Rounded Edges Trim ###
+    corner_radius = 12
+    frame_width = 0
+
+    sticky_history = false
+
+[urgency_low]
+    background = "#1E222A80" 
+    foreground = "#ABB2BF"
+    frame_color = "#282C34"
+    timeout = 4
+
+[urgency_normal]
+    background = "#1E222A80" 
+    foreground = "#ABB2BF"
+    frame_color = "#61AFEF" 
+    timeout = 6
+
+[urgency_critical]
+    background = "#1E222A80" 
+    foreground = "#E06C75"
+    frame_color = "#E06C75" 
+    timeout = 0
+

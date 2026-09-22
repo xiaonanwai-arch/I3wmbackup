@@ -1,0 +1,119 @@
+include-file = ~/.config/polybar/colors.ini
+
+[bar/main]
+width = 100%
+height = 18pt
+radius = 9
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2pt
+
+border-size = 4pt
+border-color = #00000000
+
+padding-left = 2
+padding-right = 2
+module-margin = 1
+
+font-0 = "ComicShannsMono Nerd Font Propo:style=Bold:size=10.2;2"
+
+modules-left = arch  date
+modules-center = i3 
+modules-right = wlan pulseaudio battery 
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+override-redirect = true
+wm-restack = generic
+
+
+[module/arch]
+type = custom/script
+
+exec = echo " kai"
+exec-if = true
+
+format-prefix = "󰣇"
+format-prefix-foreground = ${colors.primary}
+format-foreground = ${colors.foreground}
+click-left = /home/kai/.config/rofi/launchers/type-2/launcher.sh
+click-right = /home/kai/.config/rofi/powermenu/type-1/powermenu.sh
+
+
+[module/wlan]
+type = custom/script
+exec = iwgetid -r || echo "Disconnected"
+interval = 3
+format-prefix = " "
+format-prefix-foreground = ${colors.primary}
+format = <label>
+label = %output%
+label-foreground = ${colors.primary}
+
+click-left = /home/kai/.config/rofi/applets/bin/wifi.sh
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+;; Formatting for active volume
+format-volume = <label-volume>
+format-volume-prefix = " "
+format-volume-prefix-foreground = ${colors.primary}
+
+;; Label configuration for active volume
+label-volume = %percentage%%
+label-volume-foreground = ${colors.foreground}
+
+;; Formatting and label for muted state
+format-muted = <label-muted>
+format-muted-prefix = " "
+format-muted-prefix-foreground = ${colors.disabled}
+label-muted = Muted
+label-muted-foreground = ${colors.disabled}
+click-right = pavucontrol
+
+
+[module/battery]
+type = custom/script
+exec = acpi -b | cut -d',' -f2 | tr -d ' '
+interval = 5
+format-prefix = "󰁹 "
+format-prefix-foreground = ${colors.primary}
+label = %output%
+click-left = /home/kai/.config/rofi/applets/bin/battery.sh
+click-right = /home/kai/.config/rofi/applets/bin/brightness.sh
+
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = %H:%M
+date-alt = %Y-%m-%d %H:%M:%S
+
+label = %date%
+label-foreground = ${colors.primary}
+
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = false
+
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+show-urgent = true
+index-sort = true
+
+label-focused = 
+label-focused-padding = 1
+
+label-unfocused = 
+label-unfocused-padding = 1
+
